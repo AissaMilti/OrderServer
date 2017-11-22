@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace OrderServer.Host
 {
-    public class Class1
+    public class ServiceStarter
     {
+
     }
 }
