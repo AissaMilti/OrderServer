@@ -10,7 +10,7 @@ namespace OrderServer.Host.Helpers
 {
     public static class SocketHelper
     {
-        public static EndPoint MyEndPoint()
+        private static EndPoint GetEndPoint()
         {
             var address = IPAddress.Parse(GetLocalIPAddress());
 
@@ -33,6 +33,15 @@ namespace OrderServer.Host.Helpers
             }
 
             return ipAddress;
+        }
+
+        public static Socket MySocket()
+        {
+            var socket = new Socket(AddressFamily.InterNetwork,
+                SocketType.Stream, ProtocolType.Tcp);
+            socket.Bind(GetEndPoint());
+
+            return socket;
         }
     }
 }

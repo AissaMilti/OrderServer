@@ -12,7 +12,7 @@ namespace Console.UI
     {
         static void Main(string[] args)
         {
-            SocketHelper.MyEndPoint();
+            SocketHelper.MySocket();
         }
     }
 }

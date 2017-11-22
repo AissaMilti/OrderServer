@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\SocketHelper.cs" />
+    <Compile Include="MyClient.cs" />
     <Compile Include="ServiceStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocketServer.cs" />
