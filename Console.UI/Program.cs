@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OrderServer.Host;
 using OrderServer.Host.Helpers;
+using System;
 
 namespace Console.UI
 {
@@ -12,7 +8,14 @@ namespace Console.UI
     {
         static void Main(string[] args)
         {
-            SocketHelper.MySocket();
+            var serviceStarter = new ServiceStarter();
+            serviceStarter.Start();
+            System.Console.WriteLine("Starting server......");
+
+            var ip = SocketHelper.GetLocalIPAddress();
+            System.Console.WriteLine($"Server ip: {ip}");
+            System.Console.WriteLine($"Server ip: 8080");
+            System.Console.ReadLine();
         }
     }
 }

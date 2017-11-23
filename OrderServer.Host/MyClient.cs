@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderServer.Host.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -9,8 +10,8 @@ namespace OrderServer.Host
 {
     class MyClient
     {
-        private readonly Socket _client;
-        private readonly Task _task;
+        private Socket _client;
+        private Task _task;
 
         public MyClient(Socket client)
         {
@@ -23,18 +24,22 @@ namespace OrderServer.Host
         {
             while (true)
             {
-                //var bytes = new byte[1024];
-                //var recvBytes = _client.Receive(bytes);
-                //var response = Encoding.UTF8.GetString(bytes, 0, recvBytes);
-                //if (response == "x")
-                //{
-                //    break;
-                //}
-                //Console.Write(response);
+                var bytes = new byte[1024];
+                var recvBytes = _client.Receive(bytes);
+                if (recvBytes == 0)
+                {
+                    break;
+                }
+                
+                var request = Encoding.UTF8.GetString(bytes, 0, recvBytes);
+
+                //vad gör vi med requesten?
+                
                 //var date = DateTime.Now.ToLongDateString();
                 //var dateBytes = Encoding.ASCII.GetBytes(date);
                 //_client.Send(dateBytes);
             }
+            SocketHelper.Connections.Remove(_client);
             _client.Close();
         }
     }

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderServer.Host", "OrderServer.Host\OrderServer.Host.csproj", "{18C48562-630D-49F5-81E2-5CE9E686F2DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console.UI", "Console.UI\Console.UI.csproj", "{F17AA8E8-0716-4E1E-BE72-CEE647B0AE65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{D9B2FBA2-FFF2-452A-AF4F-BBB77A1F6D38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F17AA8E8-0716-4E1E-BE72-CEE647B0AE65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F17AA8E8-0716-4E1E-BE72-CEE647B0AE65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F17AA8E8-0716-4E1E-BE72-CEE647B0AE65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9B2FBA2-FFF2-452A-AF4F-BBB77A1F6D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9B2FBA2-FFF2-452A-AF4F-BBB77A1F6D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9B2FBA2-FFF2-452A-AF4F-BBB77A1F6D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9B2FBA2-FFF2-452A-AF4F-BBB77A1F6D38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

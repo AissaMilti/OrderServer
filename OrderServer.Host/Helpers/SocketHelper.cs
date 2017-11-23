@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrderServer.Host.Helpers
 {
     public static class SocketHelper
     {
+        public static List<Socket> Connections = new List<Socket>();
+
         private static EndPoint GetEndPoint()
         {
             var address = IPAddress.Parse(GetLocalIPAddress());
@@ -19,7 +17,7 @@ namespace OrderServer.Host.Helpers
             return endPoint;
         }
 
-        private static string GetLocalIPAddress()
+        public static string GetLocalIPAddress()
         {
             string ipAddress = null;
 
@@ -35,12 +33,12 @@ namespace OrderServer.Host.Helpers
             return ipAddress;
         }
 
-        public static Socket MySocket()
+        public static Socket GetSocket()
         {
             var socket = new Socket(AddressFamily.InterNetwork,
                 SocketType.Stream, ProtocolType.Tcp);
             socket.Bind(GetEndPoint());
-
+            
             return socket;
         }
     }
