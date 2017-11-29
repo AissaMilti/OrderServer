@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using Client.Models;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Client
 {
@@ -70,22 +71,27 @@ namespace Client
 
         void ClientSend()
         {
-            var dishes = ListViewOrders.Items;
-            
-            var order = JsonConvert.SerializeObject(dishes);
-            foreach (var o in order)
-            {
+            var selectedDishes = ListViewOrders.Items.ToString();
+            var dishes = JsonConvert.DeserializeObject<List<Dish>>(selectedDishes);
+            var dishIds = dishes.Select(d => d.Id).ToArray();
+            var customerId = Guid.NewGuid().ToString();
                 
-            }
+            var order = new Order
+            {
+                CustomerId = customerId,
+                DishIdArray = dishIds,
+                Done = false
+            };
+
+            var jsonOrder = JsonConvert.SerializeObject(order);
 
             while (true)
             {
-                var bytesToSend = Encoding.ASCII.GetBytes(order);
-                //ns.Write(bytesToSend, 0, bytesToSend.Length);
-                //ns.Flush();
-                //if (message == "exit") break;
+                var bytesToSend = Encoding.ASCII.GetBytes(jsonOrder);
+                
             }
         }
+
         private void ClientRecieve()
         {
             //Console.WriteLine("Tar emot data från servern....");

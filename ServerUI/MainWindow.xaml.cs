@@ -51,8 +51,8 @@ namespace ServerUI
 
         private void BtnOrderComplete_Click(object sender, RoutedEventArgs e)
         {
-            var Order = (Order)ListViewOrders.SelectedItems[0];
-            SocketHelper.Connections.First().Send()
+            //var Order = (Order)ListViewOrders.SelectedItems[0];
+            //SocketHelper.Connections.First().Send()
         }
     }
 }
