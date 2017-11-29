@@ -8,14 +8,14 @@ namespace Console.UI
     {
         static void Main(string[] args)
         {
-            var serviceStarter = new ServiceStarter();
-            serviceStarter.Start();
-            System.Console.WriteLine("Starting server......");
+            //var serviceStarter = new ServiceStarter();
+            //serviceStarter.Start();
+            //System.Console.WriteLine("Starting server......");
 
-            var ip = SocketHelper.GetLocalIPAddress();
-            System.Console.WriteLine($"Server ip: {ip}");
-            System.Console.WriteLine($"Server ip: 8080");
-            System.Console.ReadLine();
+            //var ip = SocketHelper.GetLocalIPAddress();
+            //System.Console.WriteLine($"Server ip: {ip}");
+            //System.Console.WriteLine($"Server ip: 8080");
+            //System.Console.ReadLine();
         }
     }
 }

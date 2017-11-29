@@ -1,4 +1,6 @@
-﻿using OrderServer.Host.Helpers;
+﻿using Newtonsoft.Json;
+using OrderServer.Host.Helpers;
+using OrderServer.Host.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,7 @@ namespace OrderServer.Host
 {
     class MyClient
     {
+       
         private Socket _client;
         private Task _task;
 
@@ -32,14 +35,16 @@ namespace OrderServer.Host
                 }
                 
                 var request = Encoding.UTF8.GetString(bytes, 0, recvBytes);
+                var order = JsonConvert.DeserializeObject<Order>(request);
+                OrderData.Orders.Add(order);
 
-                //vad gör vi med requesten?
-                
+
                 //var date = DateTime.Now.ToLongDateString();
                 //var dateBytes = Encoding.ASCII.GetBytes(date);
                 //_client.Send(dateBytes);
             }
-            SocketHelper.Connections.Remove(_client);
+            var socketClientToRemove = SocketHelper.Connections.FirstOrDefault(c => c.Socket == _client);
+            SocketHelper.Connections.Remove(socketClientToRemove);
             _client.Close();
         }
     }

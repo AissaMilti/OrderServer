@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OrderServer.Host.Models;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 
@@ -6,7 +7,7 @@ namespace OrderServer.Host.Helpers
 {
     public static class SocketHelper
     {
-        public static List<Socket> Connections = new List<Socket>();
+        public static List<SocketClient> Connections = new List<SocketClient>();
 
         private static EndPoint GetEndPoint()
         {
