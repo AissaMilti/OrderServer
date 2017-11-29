@@ -70,11 +70,17 @@ namespace Client
 
         void ClientSend()
         {
-            //Console.WriteLine("Avsluta med 'exit'");
+            var dishes = ListViewOrders.Items;
+            
+            var order = JsonConvert.SerializeObject(dishes);
+            foreach (var o in order)
+            {
+                
+            }
+
             while (true)
             {
-                //var message = Console.ReadLine();
-                //var bytesToSend = Encoding.ASCII.GetBytes(message);
+                var bytesToSend = Encoding.ASCII.GetBytes(order);
                 //ns.Write(bytesToSend, 0, bytesToSend.Length);
                 //ns.Flush();
                 //if (message == "exit") break;
@@ -93,6 +99,17 @@ namespace Client
              
                 //Console.WriteLine("\t\t<" + message + ">");
             }
+        }
+
+        private void BtnChose_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dish = ListViewDishes.SelectedItem;
+            ListViewOrders.Items.Add(dish);
+        }
+
+        private void BtnOrder_OnClick(object sender, RoutedEventArgs e)
+        {
+            ClientSend();
         }
     }
 }

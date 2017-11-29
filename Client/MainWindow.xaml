@@ -5,14 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <TextBox x:Name="TxtboxIPAddress" HorizontalAlignment="Left" Height="23" Margin="70,50,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="TxtboxPort" HorizontalAlignment="Left" Height="23" Margin="70,92,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Button HorizontalAlignment="Left" Margin="82,148,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.101,0.549">
-            <Button x:Name="BtnConnect" Content="Connect" Height="22" Width="56" Click="BtnConnect_Click"/>
-        </Button>
-        <ListView x:Name="ListViewDishes" HorizontalAlignment="Left" Height="154" Margin="299,73,0,0" VerticalAlignment="Top" Width="134" ItemsSource="{Binding}">
+        Title="MainWindow" Height="350" Width="800">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label>IP-adress:</Label>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtboxIPAddress" Margin="0,0,0,10" />
+        <Label Grid.Row="1" Grid.Column="0">Port:</Label>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtboxPort" Margin="0,0,0,10" />
+        <Button Grid.Row="2" Grid.Column="1" x:Name="BtnConnect" Content="Connect" Click="BtnConnect_Click"></Button>
+        <ListView Grid.Row="0" Grid.RowSpan="4" Grid.Column="3"  x:Name="ListViewDishes" ItemsSource="{Binding}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Lista av maträtter" DisplayMemberBinding="{Binding Name}"/>
@@ -20,6 +36,17 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Grid.Row="4" Grid.Column="3" Margin="0,5,0,5" x:Name="BtnChose" Click="BtnChose_OnClick" Content="Välj"></Button>
 
+        <ListView Grid.Row="0" Grid.RowSpan="4" Grid.Column="5" x:Name="ListViewOrders">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Lista av maträtter" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Pris" Width="Auto" DisplayMemberBinding="{Binding Price}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Grid.Row="4" Grid.Column="5" x:Name="BtnOrder" Click="BtnOrder_OnClick" Margin="0,5,0,5" Content="Beställ"></Button>
+        <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" x:Name="Message" />
     </Grid>
 </Window>
