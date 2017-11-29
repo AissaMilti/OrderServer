@@ -45,8 +45,11 @@
   <ItemGroup>
     <Compile Include="Data\Context.cs" />
     <Compile Include="Data\DataIntializer.cs" />
+    <Compile Include="Helpers\OrderData.cs" />
     <Compile Include="Helpers\SocketHelper.cs" />
     <Compile Include="Models\Dish.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\SocketClient.cs" />
     <Compile Include="MyClient.cs" />
     <Compile Include="ServiceStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

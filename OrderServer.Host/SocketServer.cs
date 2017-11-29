@@ -24,7 +24,13 @@ namespace OrderServer.Host
             while (true)
             {
                 var client = socket.Accept();//blocking
-                SocketHelper.Connections.Add(client);
+
+                var socketClient = new SocketClient()
+                {
+                    Socket = client
+                };
+                
+                SocketHelper.Connections.Add(socketClient);
                 var c = new MyClient(client);
                 var dishesJson = JsonConvert.SerializeObject(Context.Dishes);
                 var toBytes = Encoding.ASCII.GetBytes(dishesJson);
