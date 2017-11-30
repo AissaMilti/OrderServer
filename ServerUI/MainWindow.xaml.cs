@@ -25,7 +25,7 @@ namespace ServerUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<Order> Orders = new ObservableCollection<Order>();
+        public ObservableCollection<Order> Orders = new ObservableCollection<Order>();
         
 
         public MainWindow()
@@ -35,11 +35,13 @@ namespace ServerUI
             serviceStarter.Start();
             var ip = SocketHelper.GetLocalIPAddress();
             LabelAddress.Content = ip;
-            int[] arr = {1,2};
-            int[] arr2 = { 1 };
-            Orders.Add(new Order() { Done = false, CustomerId = "212415faaf", DishIdArray = arr });
-            Orders.Add(new Order() { Done = false, CustomerId = "12515", DishIdArray = arr2 });
+            //int[] arr = {1,2};
+            //int[] arr2 = { 1 };
+            //Orders.Add(new Order() { Done = false, CustomerId = "212415faaf", DishIdArray = arr });
+            //Orders.Add(new Order() { Done = false, CustomerId = "12515", DishIdArray = arr2 });
             DataContext = Orders;
+            var task = new Task(UpdateData);
+            task.Start();
         }
 
         private void ListViewOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -53,6 +55,20 @@ namespace ServerUI
         {
             //var Order = (Order)ListViewOrders.SelectedItems[0];
             //SocketHelper.Connections.First().Send()
+        }
+        private void UpdateData()
+        {
+            while (true)
+            {
+                foreach (var order in OrderData.Orders)
+                {
+                    if (Orders.Contains(order))
+                    {
+                        continue;
+                    }
+                    Orders.Add(order);
+                }
+            }
         }
     }
 }

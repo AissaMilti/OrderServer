@@ -71,9 +71,20 @@ namespace Client
 
         void ClientSend()
         {
-            var selectedDishes = ListViewOrders.Items.ToString();
-            var dishes = JsonConvert.DeserializeObject<List<Dish>>(selectedDishes);
-            var dishIds = dishes.Select(d => d.Id).ToArray();
+            var selectedDishes = new List<Dish>();
+            
+            foreach (var item in ListViewOrders.Items)
+            {
+                var dish = item as Dish;
+                if(dish != null)
+                {
+                    selectedDishes.Add(dish);
+                }
+            }
+            
+            var dishIds = selectedDishes.Select(d => d.Id).ToArray();
+           
+            
             var customerId = Guid.NewGuid().ToString();
                 
             var order = new Order
@@ -84,12 +95,21 @@ namespace Client
             };
 
             var jsonOrder = JsonConvert.SerializeObject(order);
+            
+             var bytesToSend = Encoding.ASCII.GetBytes(jsonOrder);
 
-            while (true)
+            try
             {
-                var bytesToSend = Encoding.ASCII.GetBytes(jsonOrder);
+                client.Client.Send(bytesToSend);
+            }
+            catch (Exception)
+            {
+
                 
             }
+            
+
+
         }
 
         private void ClientRecieve()
