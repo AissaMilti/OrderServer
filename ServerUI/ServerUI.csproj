@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="Host\Data\Context.cs" />
     <Compile Include="Host\Data\DataIntializer.cs" />
+    <Compile Include="Host\Helpers\Counter.cs" />
     <Compile Include="Host\Helpers\OrderData.cs" />
     <Compile Include="Host\Helpers\SocketHelper.cs" />
     <Compile Include="Host\Models\Dish.cs" />
