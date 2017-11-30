@@ -4,6 +4,7 @@ using Host.Helpers;
 using Host.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -41,8 +42,15 @@ namespace ServerUI
 
         private void BtnOrderComplete_Click(object sender, RoutedEventArgs e)
         {
-            //var Order = (Order)ListViewOrders.SelectedItems[0];
-            //SocketHelper.Connections.First().Send()
+            var order = (Order)ListViewOrders.SelectedItems[0];
+            //var endpoint = OrderData.OrderClient.FirstOrDefault(o => o.CustomerId.Equals(Order.CustomerId)).EndPoint;
+            var client = SocketHelper.Connections.FirstOrDefault(c => c.CustomerId.Contains(order.CustomerId));
+            order.Done = true;
+
+            var response = Encoding.UTF8.GetBytes(order.CustomerId);
+
+            client.Socket.Send(response);
+            
         }        
 
     

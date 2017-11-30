@@ -40,8 +40,12 @@ namespace Host
                 var request = Encoding.UTF8.GetString(bytes, 0, recvBytes);
                 var order = JsonConvert.DeserializeObject<Order>(request);
                 OrderData.Orders.Add(order);
-                Application.Current.Dispatcher.Invoke(new Action(() => { OrderData.OrdersObsverableCollection.Add(order); }));
+                var socketClient = SocketHelper.Connections.FirstOrDefault(c => c.Socket == _client);
+                socketClient.CustomerId.Add(order.CustomerId);
+                Application.Current.Dispatcher.Invoke(new Action(() => { OrderData.OrdersObsverableCollection.Add(order); }));                
+
             }
+
             var socketClientToRemove = SocketHelper.Connections.FirstOrDefault(c => c.Socket == _client);
             SocketHelper.Connections.Remove(socketClientToRemove);
             _client.Close();
