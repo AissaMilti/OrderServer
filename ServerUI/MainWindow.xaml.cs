@@ -19,8 +19,6 @@ namespace ServerUI
 
         public ObservableCollection<Order> Orders = OrderData.OrdersObsverableCollection;
 
-
-
         public MainWindow()
         {
             
@@ -44,10 +42,10 @@ namespace ServerUI
         {
             var order = (Order)ListViewOrders.SelectedItems[0];
             //var endpoint = OrderData.OrderClient.FirstOrDefault(o => o.CustomerId.Equals(Order.CustomerId)).EndPoint;
-            var client = SocketHelper.Connections.FirstOrDefault(c => c.CustomerId.Contains(order.CustomerId));
+            var client = SocketHelper.Connections.FirstOrDefault(c => c.CustomerId.Contains(order.CustomerId.Value));
             order.Done = true;
 
-            var response = Encoding.UTF8.GetBytes(order.CustomerId);
+            var response = Encoding.UTF8.GetBytes("Order " + order.CustomerId.ToString() + " är klart att hämtas!");
 
             client.Socket.Send(response);
             

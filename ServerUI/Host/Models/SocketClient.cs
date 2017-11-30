@@ -5,7 +5,7 @@ namespace Host.Models
 {
     public class SocketClient
     {
-        public List<string> CustomerId { get; set; } = new List<string>();
+        public List<int> CustomerId { get; set; } = new List<int>();
         public Socket Socket { get; set; }
     }
 }

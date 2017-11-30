@@ -2,7 +2,7 @@
 {
     public class Order
     {
-        public string CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public int[] DishIdArray { get; set; }
         public bool Done { get; set; }
     }

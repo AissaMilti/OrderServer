@@ -1,6 +1,7 @@
 ﻿using Host.Helpers;
 using Host.Models;
 using Newtonsoft.Json;
+using ServerUI.Host.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,8 +42,13 @@ namespace Host
                 var order = JsonConvert.DeserializeObject<Order>(request);
                 OrderData.Orders.Add(order);
                 var socketClient = SocketHelper.Connections.FirstOrDefault(c => c.Socket == _client);
-                socketClient.CustomerId.Add(order.CustomerId);
-                Application.Current.Dispatcher.Invoke(new Action(() => { OrderData.OrdersObsverableCollection.Add(order); }));                
+                var id = Counter.IdCounter.Count() + 1;
+                order.CustomerId = id;
+
+                socketClient.CustomerId.Add(id);
+                Application.Current.Dispatcher.Invoke(new Action(() => { OrderData.OrdersObsverableCollection.Add(order); }));
+                
+                _client.Send(Encoding.UTF8.GetBytes("Order Id: " + id.ToString()));
 
             }
 

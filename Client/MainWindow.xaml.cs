@@ -88,8 +88,7 @@ namespace Client
             var customerId = Guid.NewGuid().ToString();
                 
             var order = new Order
-            {
-                CustomerId = customerId,
+            {                
                 DishIdArray = dishIds,
                 Done = false
             };
@@ -120,7 +119,7 @@ namespace Client
                 var data = new byte[1024];
                 var recv = ns.Read(data, 0, data.Length);
                 var message = Encoding.ASCII.GetString(data, 0, recv);
-                Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = $"Klar att hämta: {message}"; }));
+                Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = $"{message}"; }));
                 
                
             }
@@ -135,8 +134,7 @@ namespace Client
         private void BtnOrder_OnClick(object sender, RoutedEventArgs e)
         {
             ClientSend();
-            ListViewOrders.Items.Clear();
-            Message.Content = "Beställning Skickad";
+            ListViewOrders.Items.Clear();            
         }
     }
 }
