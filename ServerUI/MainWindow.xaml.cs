@@ -2,6 +2,7 @@
 using Host.Data;
 using Host.Helpers;
 using Host.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -33,8 +34,13 @@ namespace ServerUI
 
         private void ListViewOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            List<string> dishes = new List<string>();
             var Order = (Order)ListViewOrders.SelectedItems[0];
-            var dishes = Context.Dishes.Where(d => Order.DishIdArray.Contains(d.Id)).Select(d => d.Name);
+            foreach (var item in Order.DishIdArray)
+            {
+                var dish = Context.Dishes.Where(d => d.Id == item).FirstOrDefault();
+                dishes.Add(dish.Name);
+            }
             LabelDishesToPrepare.Content = string.Join(",", dishes);
         }
 
