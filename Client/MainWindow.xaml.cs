@@ -20,15 +20,15 @@ namespace Client
         public MainWindow()
         {
             InitializeComponent();
-           
+
         }
 
-        private ObservableCollection<Dish> Dishes = new ObservableCollection<Dish>();     
+        private ObservableCollection<Dish> Dishes = new ObservableCollection<Dish>();
         TcpClient client;
         NetworkStream ns;
 
         private void BtnConnect_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             Connect();
         }
 
@@ -41,14 +41,15 @@ namespace Client
             return endPoint;
         }
 
-        void Connect()
+        private void Connect()
         {
-            var endpoint = RemoteEndPoint();               
+            var endpoint = RemoteEndPoint();
 
             var data = new Byte[1024];
             client = new TcpClient();
             try
             {
+                Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = "  " ; }));
                 client.Connect(endpoint);
                 ns = client.GetStream();
                 var recv = ns.Read(data, 0, data.Length);
@@ -61,32 +62,33 @@ namespace Client
                 DataContext = dishes;
                 var task1 = new Task(() => ClientRecieve());
                 task1.Start();
-
+                
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                    
+                var message = endpoint.Address + " or " + endpoint.Port + " is wrong";
+                Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = message; }));
             }
         }
 
         void ClientSend()
         {
             var selectedDishes = new List<Dish>();
-            
+
             foreach (var item in ListViewOrders.Items)
             {
                 var dish = item as Dish;
-                if(dish != null)
+                if (dish != null)
                 {
                     selectedDishes.Add(dish);
                 }
             }
-            
+
             var dishIds = selectedDishes.Select(d => d.Id).ToArray();
-           
-            
+
+
             var customerId = Guid.NewGuid().ToString();
-                
+
             var order = new Order
             {
                 CustomerId = customerId,
@@ -95,8 +97,8 @@ namespace Client
             };
 
             var jsonOrder = JsonConvert.SerializeObject(order);
-            
-             var bytesToSend = Encoding.ASCII.GetBytes(jsonOrder);
+
+            var bytesToSend = Encoding.ASCII.GetBytes(jsonOrder);
 
             try
             {
@@ -105,24 +107,18 @@ namespace Client
             catch (Exception)
             {
 
-                
+
             }
-            
-
-
         }
 
         private void ClientRecieve()
         {
-            
             while (true)
             {
                 var data = new byte[1024];
                 var recv = ns.Read(data, 0, data.Length);
                 var message = Encoding.ASCII.GetString(data, 0, recv);
                 Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = $"Klar att hämta: {message}"; }));
-                
-               
             }
         }
 
@@ -140,5 +136,5 @@ namespace Client
         }
     }
 }
-    
+
 
