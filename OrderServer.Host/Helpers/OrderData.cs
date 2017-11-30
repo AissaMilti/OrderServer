@@ -6,6 +6,8 @@ namespace OrderServer.Host.Helpers
 {
     public static class OrderData
     {
-        public static List<Order> Orders = new List<Order>();
+        public static List<Order> Orders = new List<Order>();        
     }
+
+    
 }

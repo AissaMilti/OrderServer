@@ -1,7 +1,7 @@
-﻿using OrderServer.Host.Data;
-using OrderServer.Host.Helpers;
+﻿using Host.Data;
+using Host.Helpers;
 
-namespace OrderServer.Host
+namespace Host
 {
     public class ServiceStarter
     {

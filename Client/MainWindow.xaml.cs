@@ -122,8 +122,6 @@ namespace Client
                 var recv = ns.Read(data, 0, data.Length);
                 var message = Encoding.ASCII.GetString(data, 0, recv);
                
-             
-                //Console.WriteLine("\t\t<" + message + ">");
             }
         }
 
@@ -136,6 +134,8 @@ namespace Client
         private void BtnOrder_OnClick(object sender, RoutedEventArgs e)
         {
             ClientSend();
+            ListViewOrders.Items.Clear();
+            Message.Content = "Beställning Skickad";
         }
     }
 }

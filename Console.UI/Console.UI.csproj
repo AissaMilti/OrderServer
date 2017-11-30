@@ -48,11 +48,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OrderServer.Host\OrderServer.Host.csproj">
-      <Project>{18c48562-630d-49f5-81e2-5ce9e686f2da}</Project>
-      <Name>OrderServer.Host</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

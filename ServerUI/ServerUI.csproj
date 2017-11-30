@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -62,6 +65,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Host\Data\Context.cs" />
+    <Compile Include="Host\Data\DataIntializer.cs" />
+    <Compile Include="Host\Helpers\OrderData.cs" />
+    <Compile Include="Host\Helpers\SocketHelper.cs" />
+    <Compile Include="Host\Models\Dish.cs" />
+    <Compile Include="Host\Models\Order.cs" />
+    <Compile Include="Host\Models\SocketClient.cs" />
+    <Compile Include="Host\MyClient.cs" />
+    <Compile Include="Host\ServiceStarter.cs" />
+    <Compile Include="Host\SocketServer.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -85,6 +98,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -92,12 +106,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OrderServer.Host\OrderServer.Host.csproj">
-      <Project>{18c48562-630d-49f5-81e2-5ce9e686f2da}</Project>
-      <Name>OrderServer.Host</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

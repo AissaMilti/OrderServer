@@ -1,15 +1,17 @@
-﻿using Newtonsoft.Json;
-using OrderServer.Host.Helpers;
-using OrderServer.Host.Models;
+﻿using Host.Helpers;
+using Host.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
-namespace OrderServer.Host
+
+namespace Host
 {
     class MyClient
     {
@@ -37,21 +39,18 @@ namespace OrderServer.Host
                 
                 var request = Encoding.UTF8.GetString(bytes, 0, recvBytes);
                 var order = JsonConvert.DeserializeObject<Order>(request);
-                
-                Dispatcher.Invoke(() => AddOrder(order));
-
-                //var date = DateTime.Now.ToLongDateString();
-                //var dateBytes = Encoding.ASCII.GetBytes(date);
-                //_client.Send(dateBytes);
+                OrderData.Orders.Add(order);
+                Application.Current.Dispatcher.Invoke(new Action(() => { OrderData.OrdersObsverableCollection.Add(order); }));
             }
             var socketClientToRemove = SocketHelper.Connections.FirstOrDefault(c => c.Socket == _client);
             SocketHelper.Connections.Remove(socketClientToRemove);
             _client.Close();
         }
 
-        public void AddOrder(Order order)
-        {
-            OrderData.Orders.Add(order);
-        }
+    
     }
+    
+    
+
+
 }
