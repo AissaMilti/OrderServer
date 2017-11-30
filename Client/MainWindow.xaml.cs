@@ -66,7 +66,7 @@ namespace Client
             }
             catch (Exception e)
             {
-                var message = endpoint.Address + " or " + endpoint.Port + " is wrong";
+                var message = " Ip address or Port number is wrong";
                 Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = message; }));
             }
         }
