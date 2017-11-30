@@ -42,7 +42,9 @@ namespace Host
                 var order = JsonConvert.DeserializeObject<Order>(request);
                 OrderData.Orders.Add(order);
                 var socketClient = SocketHelper.Connections.FirstOrDefault(c => c.Socket == _client);
+                
                 var id = Counter.IdCounter.Count() + 1;
+                Counter.IdCounter.Add(id);
                 order.CustomerId = id;
 
                 socketClient.CustomerId.Add(id);
