@@ -22,18 +22,17 @@ namespace ServerUI
 
         public MainWindow()
         {
-            
             InitializeComponent();
             var serviceStarter = new ServiceStarter();
             serviceStarter.Start();
             var ip = SocketHelper.GetLocalIPAddress();
-            LabelAddress.Content = ip;           
-            DataContext = Orders;       
-           
+            LabelAddress.Content = ip;
+            DataContext = Orders;
         }
 
         private void ListViewOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            LabelDishesToPrepare.Content = " ";
             List<string> dishes = new List<string>();
             var Order = (Order)ListViewOrders.SelectedItems[0];
             foreach (var item in Order.DishIdArray)
@@ -47,17 +46,10 @@ namespace ServerUI
         private void BtnOrderComplete_Click(object sender, RoutedEventArgs e)
         {
             var order = (Order)ListViewOrders.SelectedItems[0];
-            //var endpoint = OrderData.OrderClient.FirstOrDefault(o => o.CustomerId.Equals(Order.CustomerId)).EndPoint;
             var client = SocketHelper.Connections.FirstOrDefault(c => c.CustomerId.Contains(order.CustomerId.Value));
             order.Done = true;
-
             var response = Encoding.UTF8.GetBytes("Order " + order.CustomerId.ToString() + " är klart att hämtas!");
-
             client.Socket.Send(response);
-            
-        }        
-
-    
-
+        }
     }
 }
