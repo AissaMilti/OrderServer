@@ -1,5 +1,5 @@
-﻿using Host.Models;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using Host.Models;
 
 namespace ServerUI.Host.Models
 {
