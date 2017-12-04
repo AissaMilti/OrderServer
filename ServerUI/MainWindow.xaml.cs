@@ -55,7 +55,7 @@ namespace ServerUI
             var order = (Order)ListViewOrders.SelectedItems[0];
             var client = SocketHelper.Connections.FirstOrDefault(c => c.CustomerId.Contains(order.CustomerId.Value));
             order.Done = true;
-            var response = Encoding.UTF8.GetBytes("Order " + order.CustomerId.ToString() + " är klart att hämtas!");
+            var response = Encoding.GetEncoding(1252).GetBytes("Order " + order.CustomerId.ToString() + " är klart att hämtas!");
             client.Socket.Send(response);
         }
     }
