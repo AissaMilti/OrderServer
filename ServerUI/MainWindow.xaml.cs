@@ -2,6 +2,7 @@
 using Host.Data;
 using Host.Helpers;
 using Host.Models;
+using ServerUI.Host.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace ServerUI
     {
 
         public ObservableCollection<Order> Orders = OrderData.OrdersObsverableCollection;
+        public ObservableCollection<SocketClient> Connections = SocketHelper.ConnectionsObsverableCollection;
 
         public MainWindow()
         {
@@ -27,7 +29,12 @@ namespace ServerUI
             serviceStarter.Start();
             var ip = SocketHelper.GetLocalIPAddress();
             LabelAddress.Content = ip;
-            DataContext = Orders;
+            var vm = new MainWindowViewModel
+            {
+                Orders = Orders,
+                SocketClients = Connections
+            };
+            DataContext = vm;
         }
 
         private void ListViewOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)

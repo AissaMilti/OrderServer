@@ -15,15 +15,22 @@
         <Label HorizontalAlignment="Left" Margin="39,51,0,0" VerticalAlignment="Top">
             <Label Content="Port: 8080" RenderTransformOrigin="0.053,-0.026"/>
         </Label>
-        <ListView x:Name="ListViewOrders" HorizontalAlignment="Left" Height="256" Margin="238,19,0,0" VerticalAlignment="Top" Width="176" ItemsSource="{Binding}" SelectionChanged="ListViewOrders_SelectionChanged" Grid.ColumnSpan="2" SelectionMode="Single">
+        <ListView x:Name="ListViewOrders" HorizontalAlignment="Left" Height="256" Margin="238,19,0,0" VerticalAlignment="Top" Width="176" ItemsSource="{Binding Path=Orders}" SelectionChanged="ListViewOrders_SelectionChanged" Grid.ColumnSpan="2" SelectionMode="Single">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Order" DisplayMemberBinding="{Binding CustomerId}"/>
+                    <GridViewColumn Header="Order" DisplayMemberBinding="{Binding Path=CustomerId}"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <Label x:Name="LabelDishesToPrepare" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="80.6,19,0,0" VerticalAlignment="Top" Height="113" Width="184"/>
         <Button x:Name="BtnOrderComplete" Content="Order Done" HorizontalAlignment="Left" Margin="339,280,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="BtnOrderComplete_Click"/>
+        <ListView Grid.Column="1" HorizontalAlignment="Left" Height="301" Margin="542.6,10,0,0" VerticalAlignment="Top" Width="151" ItemsSource="{Binding Path=SocketClients}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Client" DisplayMemberBinding="{Binding Path=Socket.RemoteEndPoint}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
 
     </Grid>

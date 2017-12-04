@@ -31,31 +31,42 @@ namespace Host
         {
             while (true)
             {
-                var bytes = new byte[1024];
-                var recvBytes = _client.Receive(bytes);
-                if (recvBytes == 0)
+                try
+                {
+                    var bytes = new byte[1024];
+                    var recvBytes = _client.Receive(bytes);
+                    if (recvBytes == 0)
+                    {
+                        break;
+                    }
+
+                    var request = Encoding.UTF8.GetString(bytes, 0, recvBytes);
+                    var order = JsonConvert.DeserializeObject<Order>(request);
+                    OrderData.Orders.Add(order);
+                    var socketClient = SocketHelper.Connections.FirstOrDefault(c => c.Socket == _client);
+
+                    var id = Counter.IdCounter.Count() + 1;
+                    Counter.IdCounter.Add(id);
+                    order.CustomerId = id;
+
+                    socketClient.CustomerId.Add(id);
+                    Application.Current.Dispatcher.Invoke(() => { OrderData.OrdersObsverableCollection.Add(order); });
+
+                    _client.Send(Encoding.UTF8.GetBytes("Order Id: " + id.ToString()));
+                }
+                catch (Exception e)
                 {
                     break;
+                   
                 }
-                
-                var request = Encoding.UTF8.GetString(bytes, 0, recvBytes);
-                var order = JsonConvert.DeserializeObject<Order>(request);
-                OrderData.Orders.Add(order);
-                var socketClient = SocketHelper.Connections.FirstOrDefault(c => c.Socket == _client);
-                
-                var id = Counter.IdCounter.Count() + 1;
-                Counter.IdCounter.Add(id);
-                order.CustomerId = id;
-
-                socketClient.CustomerId.Add(id);
-                Application.Current.Dispatcher.Invoke(new Action(() => { OrderData.OrdersObsverableCollection.Add(order); }));
-                
-                _client.Send(Encoding.UTF8.GetBytes("Order Id: " + id.ToString()));
+             
 
             }
 
             var socketClientToRemove = SocketHelper.Connections.FirstOrDefault(c => c.Socket == _client);
             SocketHelper.Connections.Remove(socketClientToRemove);
+            Application.Current.Dispatcher.Invoke(() => { SocketHelper.ConnectionsObsverableCollection.Remove(socketClientToRemove); });
+            //remove from obsverable collection
             _client.Close();
         }
 
