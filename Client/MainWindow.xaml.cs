@@ -66,7 +66,24 @@ namespace Client
                 DataContext = dishes;
                 var task1 = new Task(() => ClientRecieve());
                 task1.Start();
-                
+
+                TxtboxIPAddress.Visibility = Visibility.Hidden;
+                TxtboxPort.Visibility = Visibility.Hidden;
+                lblAddress.Visibility = Visibility.Hidden;
+                lblPort.Visibility = Visibility.Hidden;
+                BtnConnect.Visibility = Visibility.Hidden;
+
+                ListViewOrders.Visibility = Visibility.Visible;
+                ListViewDishes.Visibility = Visibility.Visible;
+                BtnOrder.Visibility = Visibility.Visible;
+                BtnChose.Visibility = Visibility.Visible;
+                BtnRemov.Visibility = Visibility.Visible;
+
+                lblEndPoint.Content = "Server " + endpoint;
+
+
+
+
             }
             catch (Exception e)
             {
