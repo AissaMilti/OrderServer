@@ -24,12 +24,12 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Label>IP-adress:</Label>
+        <Label Name="lblAddress">IP-adress:</Label>
         <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtboxIPAddress" Margin="0,0,0,10" />
-        <Label Grid.Row="1" Grid.Column="0">Port:</Label>
+        <Label Name="lblPort" Grid.Row="1" Grid.Column="0">Port:</Label>
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtboxPort" Margin="0,0,0,10" />
-        <Button Grid.Row="2" Grid.Column="1" x:Name="BtnConnect" Content="Connect" Click="BtnConnect_Click" RenderTransformOrigin="0.505,3.879"></Button>
-        <ListView Grid.Row="0" Grid.RowSpan="4" Grid.Column="3"  x:Name="ListViewDishes" ItemsSource="{Binding}">
+        <Button Grid.Row="2" Grid.Column="1" x:Name="BtnConnect" Content="Connect" Click="BtnConnect_Click"></Button>
+        <ListView Grid.Row="0" Grid.RowSpan="4" Grid.Column="1"  x:Name="ListViewDishes" ItemsSource="{Binding}" SelectionChanged="ListViewDishes_SelectionChanged" Visibility="Hidden">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Lista av maträtter" DisplayMemberBinding="{Binding Name}"/>
@@ -37,9 +37,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Grid.Row="4" Grid.Column="3" Margin="0,5,0,5" x:Name="BtnChose" Click="BtnChose_OnClick" Content="Välj"></Button>
+        <Button Grid.Row="4" Grid.Column="1" Margin="0,5,0,5" x:Name="BtnChose" Click="BtnChose_OnClick" Content="Välj" Visibility="Hidden"></Button>
 
-        <ListView Grid.Row="0" Grid.RowSpan="4" Grid.Column="5" x:Name="ListViewOrders">
+        <ListView Grid.Row="0" Grid.RowSpan="4" Grid.Column="3" x:Name="ListViewOrders" SelectionChanged="ListViewOrders_SelectionChanged" Visibility="Hidden">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Lista av maträtter" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
@@ -47,8 +47,10 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Grid.Row="4" Grid.Column="5" x:Name="BtnOrder" Click="BtnOrder_OnClick" Margin="127,5,0,5" Content="Beställ"></Button>
-        <Button Grid.Row="4" Grid.Column="5" x:Name="BtnRemov" Click="BtnRemov_Click" Margin="0,5,127,5" Content="Tabort"></Button>
+        <Button Grid.Row="4" Grid.Column="3" x:Name="BtnOrder" Click="BtnOrder_OnClick" Margin="127,5,0,5" Content="Beställ" Visibility="Hidden"></Button>
+        <Button Grid.Row="4" Grid.Column="3" x:Name="BtnRemov" Click="BtnRemov_Click" Margin="0,5,127,5" Content="Tabort" Visibility="Hidden"></Button>
         <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" x:Name="Message" />
+        <Label Name="lblEndPoint" Content="" Grid.Column="5" HorizontalAlignment="Left" Margin="22.6,9,0,0" Grid.RowSpan="2" VerticalAlignment="Top" RenderTransformOrigin="0.375,-0.625"/>
+        <Button Name="btnDisconnect" Grid.Column="5" Margin="9.6,26.8,160.6,99.6" Grid.RowSpan="3" Grid.Row="1" Click="DisconnectButton_Click" Visibility="Hidden">Disconnect</Button>
     </Grid>
 </Window>

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Client.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace Client
 {
@@ -20,7 +21,9 @@ namespace Client
         public MainWindow()
         {
             InitializeComponent();
-
+            BtnOrder.IsEnabled = false;
+            BtnChose.IsEnabled = false;
+            BtnRemov.IsEnabled = false;
         }
 
         private ObservableCollection<Dish> Dishes = new ObservableCollection<Dish>();
@@ -43,12 +46,13 @@ namespace Client
 
         private void Connect()
         {
-            var endpoint = RemoteEndPoint();
-
-            var data = new Byte[1024];
-            client = new TcpClient();
+            
             try
             {
+                var endpoint = RemoteEndPoint();
+
+                var data = new Byte[1024];
+                client = new TcpClient();
                 Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = "  " ; }));
                 client.Connect(endpoint);
                 ns = client.GetStream();
@@ -62,11 +66,26 @@ namespace Client
                 DataContext = dishes;
                 var task1 = new Task(() => ClientRecieve());
                 task1.Start();
-                
+
+                TxtboxIPAddress.Visibility = Visibility.Hidden;
+                TxtboxPort.Visibility = Visibility.Hidden;
+                lblAddress.Visibility = Visibility.Hidden;
+                lblPort.Visibility = Visibility.Hidden;
+                BtnConnect.Visibility = Visibility.Hidden;
+
+                ListViewOrders.Visibility = Visibility.Visible;
+                ListViewDishes.Visibility = Visibility.Visible;
+                BtnOrder.Visibility = Visibility.Visible;
+                BtnChose.Visibility = Visibility.Visible;
+                BtnRemov.Visibility = Visibility.Visible;
+
+                lblEndPoint.Content = "Server " + endpoint;
+                btnDisconnect.Visibility = Visibility.Visible;
+
             }
             catch (Exception e)
             {
-                var message = " Ip address or Port number is wrong";
+                var message = " Ip address eller Port number är fel";
                 Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = message; }));
             }
         }
@@ -132,20 +151,61 @@ namespace Client
         private void BtnChose_OnClick(object sender, RoutedEventArgs e)
         {
             var dish = ListViewDishes.SelectedItem;
-            ListViewOrders.Items.Add(dish);
+            ListViewOrders.Items.Add(dish);            
+            ListViewDishes.SelectedItem = null;
+            BtnChose.IsEnabled = false;
+            BtnOrder.IsEnabled = true;
         }
 
         private void BtnOrder_OnClick(object sender, RoutedEventArgs e)
         {
             ClientSend();
-            ListViewOrders.Items.Clear();            
+            ListViewOrders.Items.Clear();
+            BtnOrder.IsEnabled = false;
+        }
+
+        private void ListViewDishes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnChose.IsEnabled = true;
+        }
+
+        private void ListViewOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnRemov.IsEnabled = true;
         }
 
         private void BtnRemov_Click(object sender, RoutedEventArgs e)
         {
-
             var dish = ListViewOrders.SelectedItem;
             ListViewOrders.Items.Remove(dish);
+            BtnRemov.IsEnabled = false;
+            if(ListViewOrders.Items.IsEmpty)
+            {
+                BtnOrder.IsEnabled = false;
+            }
+        }
+
+        private void DisconnectButton_Click(object sender, RoutedEventArgs e)
+        {
+           client.Close();
+
+            TxtboxIPAddress.Visibility = Visibility.Visible;
+            TxtboxPort.Visibility = Visibility.Visible;  
+            lblAddress.Visibility = Visibility.Visible;
+            lblPort.Visibility = Visibility.Visible;
+            BtnConnect.Visibility = Visibility.Visible;
+
+            ListViewOrders.Visibility = Visibility.Hidden;
+            ListViewDishes.Visibility = Visibility.Hidden;
+            BtnOrder.Visibility = Visibility.Hidden;
+            BtnChose.Visibility = Visibility.Hidden;
+            BtnRemov.Visibility = Visibility.Hidden;
+
+            lblEndPoint.Content = " ";
+            btnDisconnect.Visibility = Visibility.Hidden;
+
+
+
         }
     }
 }
