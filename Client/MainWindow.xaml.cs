@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Client.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace Client
 {
@@ -20,7 +21,8 @@ namespace Client
         public MainWindow()
         {
             InitializeComponent();
-
+            BtnOrder.IsEnabled = false;
+            BtnChose.IsEnabled = false;
         }
 
         private ObservableCollection<Dish> Dishes = new ObservableCollection<Dish>();
@@ -43,12 +45,13 @@ namespace Client
 
         private void Connect()
         {
-            var endpoint = RemoteEndPoint();
-
-            var data = new Byte[1024];
-            client = new TcpClient();
+            
             try
             {
+                var endpoint = RemoteEndPoint();
+
+                var data = new Byte[1024];
+                client = new TcpClient();
                 Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = "  " ; }));
                 client.Connect(endpoint);
                 ns = client.GetStream();
@@ -125,12 +128,21 @@ namespace Client
         {
             var dish = ListViewDishes.SelectedItem;
             ListViewOrders.Items.Add(dish);
+            BtnChose.IsEnabled = false;
+            ListViewDishes.SelectedItem = null;
+            BtnOrder.IsEnabled = true;
         }
 
         private void BtnOrder_OnClick(object sender, RoutedEventArgs e)
         {
             ClientSend();
-            ListViewOrders.Items.Clear();            
+            ListViewOrders.Items.Clear();
+            BtnOrder.IsEnabled = false;
+        }
+
+        private void ListViewDishes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnChose.IsEnabled = true;
         }
     }
 }

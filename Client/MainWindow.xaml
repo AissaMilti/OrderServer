@@ -28,7 +28,7 @@
         <Label Grid.Row="1" Grid.Column="0">Port:</Label>
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtboxPort" Margin="0,0,0,10" />
         <Button Grid.Row="2" Grid.Column="1" x:Name="BtnConnect" Content="Connect" Click="BtnConnect_Click"></Button>
-        <ListView Grid.Row="0" Grid.RowSpan="4" Grid.Column="3"  x:Name="ListViewDishes" ItemsSource="{Binding}">
+        <ListView Grid.Row="0" Grid.RowSpan="4" Grid.Column="3"  x:Name="ListViewDishes" ItemsSource="{Binding}" SelectionChanged="ListViewDishes_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Lista av maträtter" DisplayMemberBinding="{Binding Name}"/>
