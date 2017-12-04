@@ -16,12 +16,54 @@ namespace Host.Data
             var dish2 = new Dish()
             {
                 Id = 2,
-                Name = "Halal Hamburgare",
-                Price = 120
+                Name = "Veg Hamburgare",
+                Price = 70
+            };
+            var dish3 = new Dish()
+            {
+                Id = 3,
+                Name = "Fisk Hamburgare",
+                Price = 80
+            };
+            var dish4 = new Dish()
+            {
+                Id = 4,
+                Name = "Chess Hamburgare",
+                Price = 90
+            };
+            var dish5 = new Dish()
+            {
+                Id =52,
+                Name = "Cola",
+                Price = 15
+            };
+            var dish6 = new Dish()
+            {
+                Id = 6,
+                Name = "Fanta",
+                Price = 15
+            };
+            var dish7 = new Dish()
+            {
+                Id = 7,
+                Name = "Chili chess",
+                Price = 45
+            };
+            var dish8 = new Dish()
+            {
+                Id = 8,
+                Name = "Lök ringer",
+                Price = 45
             };
 
             Context.Dishes.Add(dish1);
             Context.Dishes.Add(dish2);
+            Context.Dishes.Add(dish3);
+            Context.Dishes.Add(dish4);
+            Context.Dishes.Add(dish5);
+            Context.Dishes.Add(dish6);
+            Context.Dishes.Add(dish7);
+            Context.Dishes.Add(dish8);
         }
     }
 }
