@@ -1,4 +1,5 @@
-﻿using Host;
+﻿using System;
+using Host;
 using Host.Data;
 using Host.Helpers;
 using Host.Models;
@@ -52,11 +53,21 @@ namespace ServerUI
 
         private void BtnOrderComplete_Click(object sender, RoutedEventArgs e)
         {
-            var order = (Order)ListViewOrders.SelectedItems[0];
-            var client = SocketHelper.Connections.FirstOrDefault(c => c.CustomerId.Contains(order.CustomerId.Value));
-            order.Done = true;
-            var response = Encoding.UTF8.GetBytes("Order " + order.CustomerId.ToString() + " är klart att hämtas!");
-            client.Socket.Send(response);
+            try
+            {
+                var order = (Order)ListViewOrders.SelectedItems[0];
+                var client = SocketHelper.Connections.FirstOrDefault(c => c.CustomerId.Contains(order.CustomerId.Value));
+                order.Done = true;
+                var response = Encoding.GetEncoding(1252).GetBytes("Order " + order.CustomerId.ToString() + " är klart att hämtas!");
+                client.Socket.Send(response);
+
+                OrderData.Orders.Remove(order);
+                OrderData.OrdersObsverableCollection.Remove(order);
+            }
+            catch (Exception exception)
+            {
+               
+            }
         }
     }
 }

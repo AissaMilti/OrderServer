@@ -128,7 +128,7 @@ namespace Client
             {
                 var data = new byte[1024];
                 var recv = ns.Read(data, 0, data.Length);
-                var message = Encoding.ASCII.GetString(data, 0, recv);
+                var message = Encoding.GetEncoding(1252).GetString(data, 0, recv);
                 Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = $"{message}"; }));
             }
         }
