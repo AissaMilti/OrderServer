@@ -3,7 +3,6 @@ using Host;
 using Host.Data;
 using Host.Helpers;
 using Host.Models;
-using ServerUI.Host.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,6 +10,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using ServerUI.Host.Models;
 
 namespace ServerUI
 {
@@ -26,6 +26,7 @@ namespace ServerUI
         public MainWindow()
         {
             InitializeComponent();
+            BtnOrderComplete.IsEnabled = false;
             var serviceStarter = new ServiceStarter();
             serviceStarter.Start();
             var ip = SocketHelper.GetLocalIPAddress();
@@ -40,6 +41,7 @@ namespace ServerUI
 
         private void ListViewOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            BtnOrderComplete.IsEnabled = true;
             LabelDishesToPrepare.Content = " ";
             List<string> dishes = new List<string>();
             var order = (Order)ListViewOrders.SelectedItems[0];
@@ -60,14 +62,14 @@ namespace ServerUI
                 order.Done = true;
                 var response = Encoding.GetEncoding(1252).GetBytes("Order " + order.CustomerId.ToString() + " är klart att hämtas!");
                 client.Socket.Send(response);
-
                 OrderData.Orders.Remove(order);
-                OrderData.OrdersObsverableCollection.Remove(order);
+                OrderData.OrdersObsverableCollection.Remove(order);                
             }
             catch (Exception exception)
             {
                
             }
+            BtnOrderComplete.IsEnabled = false;
         }
     }
 }
