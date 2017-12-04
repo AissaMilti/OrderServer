@@ -28,7 +28,7 @@ namespace Host.Data
             var dish4 = new Dish()
             {
                 Id = 4,
-                Name = "Chess Hamburgare",
+                Name = "Cheese Hamburgare",
                 Price = 90
             };
             var dish5 = new Dish()
@@ -46,13 +46,13 @@ namespace Host.Data
             var dish7 = new Dish()
             {
                 Id = 7,
-                Name = "Chili chess",
+                Name = "Chili cheese",
                 Price = 45
             };
             var dish8 = new Dish()
             {
                 Id = 8,
-                Name = "Lök ringer",
+                Name = "Sallad",
                 Price = 45
             };
 
