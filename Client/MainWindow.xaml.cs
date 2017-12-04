@@ -87,7 +87,7 @@ namespace Client
             }
             catch (Exception e)
             {
-                var message = " Ip address or Port number is wrong";
+                var message = " Ip address eller Port number är fel";
                 Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = message; }));
             }
         }
