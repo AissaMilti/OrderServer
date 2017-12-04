@@ -51,5 +51,6 @@
         <Button Grid.Row="4" Grid.Column="3" x:Name="BtnRemov" Click="BtnRemov_Click" Margin="0,5,127,5" Content="Tabort" Visibility="Hidden"></Button>
         <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" x:Name="Message" />
         <Label Name="lblEndPoint" Content="" Grid.Column="5" HorizontalAlignment="Left" Margin="22.6,9,0,0" Grid.RowSpan="2" VerticalAlignment="Top" RenderTransformOrigin="0.375,-0.625"/>
+        <Button Name="btnDisconnect" Grid.Column="5" Margin="9.6,26.8,160.6,99.6" Grid.RowSpan="3" Grid.Row="1" Click="DisconnectButton_Click" Visibility="Hidden">Disconnect</Button>
     </Grid>
 </Window>

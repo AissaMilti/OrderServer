@@ -80,9 +80,7 @@ namespace Client
                 BtnRemov.Visibility = Visibility.Visible;
 
                 lblEndPoint.Content = "Server " + endpoint;
-
-
-
+                btnDisconnect.Visibility = Visibility.Visible;
 
             }
             catch (Exception e)
@@ -185,7 +183,30 @@ namespace Client
             {
                 BtnOrder.IsEnabled = false;
             }
-        }        
+        }
+
+        private void DisconnectButton_Click(object sender, RoutedEventArgs e)
+        {
+           client.Close();
+
+            TxtboxIPAddress.Visibility = Visibility.Visible;
+            TxtboxPort.Visibility = Visibility.Visible;  
+            lblAddress.Visibility = Visibility.Visible;
+            lblPort.Visibility = Visibility.Visible;
+            BtnConnect.Visibility = Visibility.Visible;
+
+            ListViewOrders.Visibility = Visibility.Hidden;
+            ListViewDishes.Visibility = Visibility.Hidden;
+            BtnOrder.Visibility = Visibility.Hidden;
+            BtnChose.Visibility = Visibility.Hidden;
+            BtnRemov.Visibility = Visibility.Hidden;
+
+            lblEndPoint.Content = " ";
+            btnDisconnect.Visibility = Visibility.Hidden;
+
+
+
+        }
     }
 }
 
