@@ -22,7 +22,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="LabelDishesToPrepare" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="196.6,40,0,0" VerticalAlignment="Top" Height="113" Width="379"/>
+        <Label x:Name="LabelDishesToPrepare" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="80.6,19,0,0" VerticalAlignment="Top" Height="113" Width="184"/>
         <Button x:Name="BtnOrderComplete" Content="Order Done" HorizontalAlignment="Left" Margin="339,280,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="BtnOrderComplete_Click"/>
 
 

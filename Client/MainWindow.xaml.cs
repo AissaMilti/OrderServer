@@ -117,7 +117,7 @@ namespace Client
                 var data = new byte[1024];
                 var recv = ns.Read(data, 0, data.Length);
                 var message = Encoding.ASCII.GetString(data, 0, recv);
-                Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = $"Klar att hämta: {message}"; }));
+                Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = $"{message}"; }));
             }
         }
 

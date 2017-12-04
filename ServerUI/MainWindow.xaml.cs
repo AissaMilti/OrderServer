@@ -34,13 +34,13 @@ namespace ServerUI
         {
             LabelDishesToPrepare.Content = " ";
             List<string> dishes = new List<string>();
-            var Order = (Order)ListViewOrders.SelectedItems[0];
-            foreach (var item in Order.DishIdArray)
+            var order = (Order)ListViewOrders.SelectedItems[0];
+            foreach (var item in order.DishIdArray)
             {
                 var dish = Context.Dishes.Where(d => d.Id == item).FirstOrDefault();
                 dishes.Add(dish.Name);
             }
-            LabelDishesToPrepare.Content = string.Join(",", dishes);
+            LabelDishesToPrepare.Content = $"Order id: {order.CustomerId}\n" +  string.Join($"\n", dishes);
         }
 
         private void BtnOrderComplete_Click(object sender, RoutedEventArgs e)
