@@ -1,5 +1,6 @@
 ﻿using Host.Models;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Sockets;
 
@@ -8,6 +9,7 @@ namespace Host.Helpers
     public static class SocketHelper
     {
         public static List<SocketClient> Connections = new List<SocketClient>();
+        public static ObservableCollection<SocketClient> ConnectionsObsverableCollection = new ObservableCollection<SocketClient>();
 
         private static EndPoint GetEndPoint()
         {

@@ -71,6 +71,7 @@
     <Compile Include="Host\Helpers\OrderData.cs" />
     <Compile Include="Host\Helpers\SocketHelper.cs" />
     <Compile Include="Host\Models\Dish.cs" />
+    <Compile Include="Host\Models\MainWindowViewModel.cs" />
     <Compile Include="Host\Models\Order.cs" />
     <Compile Include="Host\Models\SocketClient.cs" />
     <Compile Include="Host\MyClient.cs" />

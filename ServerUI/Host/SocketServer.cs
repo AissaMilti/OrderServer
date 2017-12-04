@@ -6,6 +6,9 @@ using Host.Data;
 using Host.Models;
 using Newtonsoft.Json;
 using ServerUI;
+using System.Windows.Threading;
+using System;
+using System.Windows;
 
 namespace Host
 {
@@ -32,6 +35,8 @@ namespace Host
                 };
                 
                 SocketHelper.Connections.Add(socketClient);
+                //add to obsverable collection
+                Application.Current.Dispatcher.Invoke(() => { SocketHelper.ConnectionsObsverableCollection.Add(socketClient); });
                 var c = new MyClient(client);
                 var dishesJson = JsonConvert.SerializeObject(Context.Dishes);
                 var toBytes = Encoding.ASCII.GetBytes(dishesJson);
