@@ -23,6 +23,7 @@ namespace Client
             InitializeComponent();
             BtnOrder.IsEnabled = false;
             BtnChose.IsEnabled = false;
+            BtnRemov.IsEnabled = false;
         }
 
         private ObservableCollection<Dish> Dishes = new ObservableCollection<Dish>();
@@ -135,9 +136,9 @@ namespace Client
         private void BtnChose_OnClick(object sender, RoutedEventArgs e)
         {
             var dish = ListViewDishes.SelectedItem;
-            ListViewOrders.Items.Add(dish);
-            BtnChose.IsEnabled = false;
+            ListViewOrders.Items.Add(dish);            
             ListViewDishes.SelectedItem = null;
+            BtnChose.IsEnabled = false;
             BtnOrder.IsEnabled = true;
         }
 
@@ -153,12 +154,21 @@ namespace Client
             BtnChose.IsEnabled = true;
         }
 
+        private void ListViewOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnRemov.IsEnabled = true;
+        }
+
         private void BtnRemov_Click(object sender, RoutedEventArgs e)
         {
-
             var dish = ListViewOrders.SelectedItem;
             ListViewOrders.Items.Remove(dish);
-        }
+            BtnRemov.IsEnabled = false;
+            if(ListViewOrders.Items.IsEmpty)
+            {
+                BtnOrder.IsEnabled = false;
+            }
+        }        
     }
 }
 

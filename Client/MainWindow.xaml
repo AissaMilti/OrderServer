@@ -38,7 +38,7 @@
         </ListView>
         <Button Grid.Row="4" Grid.Column="3" Margin="0,5,0,5" x:Name="BtnChose" Click="BtnChose_OnClick" Content="Välj"></Button>
 
-        <ListView Grid.Row="0" Grid.RowSpan="4" Grid.Column="5" x:Name="ListViewOrders">
+        <ListView Grid.Row="0" Grid.RowSpan="4" Grid.Column="5" x:Name="ListViewOrders" SelectionChanged="ListViewOrders_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Lista av maträtter" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
