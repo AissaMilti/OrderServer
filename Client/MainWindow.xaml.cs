@@ -73,11 +73,12 @@ namespace Client
                 Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = message; }));
             }
         }
-
-        void ClientSend()
+      
+        public List<Dish> GetDish()
         {
-            var selectedDishes = new List<Dish>();
 
+        
+         List<Dish> selectedDishes = new List<Dish>();
             foreach (var item in ListViewOrders.Items)
             {
                 var dish = item as Dish;
@@ -86,8 +87,15 @@ namespace Client
                     selectedDishes.Add(dish);
                 }
             }
+            return selectedDishes;
+        }
+        void ClientSend()
+        {
 
-            var dishIds = selectedDishes.Select(d => d.Id).ToArray();
+
+         
+
+            var dishIds = GetDish().Select(d => d.Id).ToArray();
 
 
             var customerId = Guid.NewGuid().ToString();
@@ -120,7 +128,7 @@ namespace Client
                 var data = new byte[1024];
                 var recv = ns.Read(data, 0, data.Length);
                 var message = Encoding.ASCII.GetString(data, 0, recv);
-                Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = $"Klar att hämta: {message}"; }));
+                Application.Current.Dispatcher.Invoke(new Action(() => { Message.Content = $"{message}"; }));
             }
         }
 
@@ -143,6 +151,13 @@ namespace Client
         private void ListViewDishes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BtnChose.IsEnabled = true;
+        }
+
+        private void BtnRemov_Click(object sender, RoutedEventArgs e)
+        {
+
+            var dish = ListViewOrders.SelectedItem;
+            ListViewOrders.Items.Remove(dish);
         }
     }
 }

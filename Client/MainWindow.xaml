@@ -46,7 +46,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Grid.Row="4" Grid.Column="5" x:Name="BtnOrder" Click="BtnOrder_OnClick" Margin="0,5,0,5" Content="Beställ"></Button>
+        <Button Grid.Row="4" Grid.Column="5" x:Name="BtnOrder" Click="BtnOrder_OnClick" Margin="127,5,0,5" Content="Beställ"></Button>
+        <Button Grid.Row="4" Grid.Column="5" x:Name="BtnRemov" Click="BtnRemov_Click" Margin="0,5,127,5" Content="Tabort"></Button>
         <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" x:Name="Message" />
     </Grid>
 </Window>
